@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class HashTableEntry:
     """
     Linked List hash table key/value pair
