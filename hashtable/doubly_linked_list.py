@@ -7,9 +7,9 @@ as well as its next node in the List.
 from linked_list import Node, LinkedList
 
 class ListNode(Node):
-    def __init__(self, value): # , next_node, next=None
+    def __init__(self, key, value): # , next_node, next=None
         super().__init__(value)
-        # self.value = value
+        self.key = key
         self.prev = None
         # self.next = None
     def get_prev(self):
@@ -41,8 +41,8 @@ class DoublyLinkedList:
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly.
     """
-    def add_to_head(self, value):
-        new_node = ListNode(value)
+    def add_to_head(self, key, value):
+        new_node = ListNode(key, value)
         if not self.head:
             self.head = new_node
             self.tail = new_node
@@ -67,7 +67,7 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
             self.length -= 1
-            return head.get_value()
+            return prev_head.get_value()
         value = self.head.get_value()
         self.head = self.head.get_next()
         self.head.prev = None
@@ -79,8 +79,8 @@ class DoublyLinkedList:
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly.
     """
-    def add_to_tail(self, value):
-        new_node = ListNode(value)
+    def add_to_tail(self, key, value):
+        new_node = ListNode(key, value)
         if not self.head:
             self.head = new_node
             self.tail = new_node
@@ -107,12 +107,12 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
             self.length -= 1
-            return head.get_value()
+            return prev_head.get_value()
         value = self.tail.get_value()
-        self.tail = self.tail.get_prev()
+        self.tail = previoso
         self.tail.next = None
         self.length -= 1
-        return value
+        # return value
             
     """
     Removes the input node from its current spot in the 
@@ -162,9 +162,9 @@ class DoublyLinkedList:
         if not self.head.get_next():
             pass
         if node is self.tail:
-            self.remove_from_tail
+            return self.remove_from_tail()
         if node is self.head:
-            self.remove_from_head()
+            return self.remove_from_head()
         else:
             infront = node.get_prev()
             behind = node.get_next()
@@ -193,12 +193,18 @@ class DoublyLinkedList:
             print(current.value)
             current = current.get_next()
 
-# lynx = DoublyLinkedList()
-# lynx.add_to_tail('Super')
-# lynx.add_to_tail('kala')
-# lynx.add_to_tail('fragile')
-# lynx.add_to_tail('istic')
+lynx = DoublyLinkedList()
+lynx.add_to_tail('Super', 'Julie')
+lynx.add_to_tail('kala', 'Andrews')
+lynx.add_to_tail('fragile', 'mary')
+lynx.add_to_tail('istic', 'poppins')
 # lynx.add_to_tail('expi')
 # lynx.add_to_tail('ali')
 # lynx.add_to_tail('docious')
-# lynx.print_links()
+lynx.print_links()
+print('\n')
+
+lynx.remove_from_tail()
+print('\n')
+lynx.print_links()
+# print(lynx.tail.value)

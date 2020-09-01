@@ -1,4 +1,5 @@
-from doubly_linked_list import DoublyLinkedList
+# from doubly_linked_list import DoublyLinkedList
+from linked_list import LinkedList
 
 class HashTableEntry:
     """
@@ -12,6 +13,7 @@ class HashTableEntry:
 
 # Hash table can't have fewer than this many slots
 MIN_CAPACITY = 8
+# lank = DoublyLinkedList()
 
 
 class HashTable:
@@ -24,7 +26,8 @@ class HashTable:
 
     def __init__(self, capacity):
         self.capacity = capacity
-        self.storage_array = [None] * self.capacity
+        self.storage_array = [LinkedList() for i in range(capacity)]
+# LEFT OFF HERE TRANSFORMING FROM DOUBLE TO SINGLE
 
 
     def get_num_slots(self):
@@ -88,10 +91,10 @@ class HashTable:
         Implement this.
         """
         indx = self.hash_index(key)
-        self.storage_array[indx] = value
+        self.storage_array[indx].add_to_tail(key, value)
 
 
-    def delete(self, key):
+    def deleter(self, key):
         """
         Remove the value stored with the given key.
 
@@ -100,9 +103,15 @@ class HashTable:
         Implement this.
         """
         indx = self.hash_index(key)
-        deld = self.storage_array[indx]
-        self.storage_array[indx] = None
-        return f'{deld} deleted, key not found'
+        cur = self.storage_array[indx].head
+        while cur:
+            if cur.key == key:
+                deldv = cur.value
+                deldk = cur.key
+                self.storage_array[indx].delete(cur)
+                return f"'{deldk}: {deldv}' deleted."
+            cur = cur.get_next()
+        return 'key not found, therefore not deletable'
 
 
     def get(self, key):
@@ -114,7 +123,12 @@ class HashTable:
         Implement this.
         """
         indx = self.hash_index(key)
-        return self.storage_array[indx]
+        cur = self.storage_array[indx].head
+        while cur:
+            if cur.key == key:
+                return cur.value
+            cur = cur.get_next()
+        return 'key not found'
 
 
     def resize(self, new_capacity):
