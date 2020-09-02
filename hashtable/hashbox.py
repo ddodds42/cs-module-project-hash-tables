@@ -1,23 +1,20 @@
 from hashtable import HashTable
-from doubly_linked_list import DoublyLinkedList
+# from doubly_linked_list import DoublyLinkedList
 
 capacity = 20
 
 tably = HashTable(capacity)
 
-tably.storage_array[0].add_to_tail('I', 0)
-tably.storage_array[0].add_to_tail('am', 1)
-tably.storage_array[0].add_to_tail('the', 2)
-tably.storage_array[0].add_to_tail('mountain', 3)
+tably.put('mountain', 'hill')
+tably.put('sky', 'wind')
 
-tably.storage_array[1].add_to_tail('you', 4)
-tably.storage_array[1].add_to_tail('be', 5)
-tably.storage_array[1].add_to_tail('a', 6)
-tably.storage_array[1].add_to_tail('hill', 7)
-
-tably.storage_array[0].print_links()
+tably.storage_array[14].print_links()
+# print('\n')
+# tably.storage_array[1].print_links()
 print('\n')
-tably.storage_array[1].print_links()
+print(tably.get('sky'))
+print('\n')
+tably.storage_array[14].print_links()
 
 '''
 tably.put('I', 'you')

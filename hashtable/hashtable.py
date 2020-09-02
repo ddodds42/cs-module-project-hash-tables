@@ -20,15 +20,10 @@ class HashTable:
     """
     A hash table that with `capacity` buckets
     that accepts string keys
-
-    Implement this.
     """
-
     def __init__(self, capacity):
         self.capacity = capacity
         self.storage_array = [LinkedList() for i in range(capacity)]
-# LEFT OFF HERE TRANSFORMING FROM DOUBLE TO SINGLE
-
 
     def get_num_slots(self):
         """
@@ -37,8 +32,6 @@ class HashTable:
         but the number of slots in the main list.)
 
         One of the tests relies on this.
-
-        Implement this.
         """
         # Your code here
 
@@ -46,8 +39,6 @@ class HashTable:
     def get_load_factor(self):
         """
         Return the load factor for this hash table.
-
-        Implement this.
         """
         # Your code here
 
@@ -55,7 +46,6 @@ class HashTable:
     def fnv1(self, key):
         """
         FNV-1 Hash, 64-bit
-
         Implement this, and/or DJB2.
         """
 
@@ -65,8 +55,6 @@ class HashTable:
     def djb2(self, key):
         """
         DJB2 hash, 32-bit
-
-        Implement this, and/or FNV-1.
         """
         hash = 5831
         for c in key:
@@ -85,58 +73,53 @@ class HashTable:
     def put(self, key, value):
         """
         Store the value with the given key.
-
         Hash collisions should be handled with Linked List Chaining.
-
-        Implement this.
         """
         indx = self.hash_index(key)
+        nodes = self.storage_array[indx].find(key)
+        if type(nodes) is dict:
+            nodes['cur'].key = key
+            nodes['cur'].value = value
+            return
         self.storage_array[indx].add_to_tail(key, value)
 
 
-    def deleter(self, key):
+    def delete(self, key):
         """
         Remove the value stored with the given key.
-
         Print a warning if the key is not found.
-
-        Implement this.
         """
         indx = self.hash_index(key)
-        cur = self.storage_array[indx].head
-        while cur:
-            if cur.key == key:
-                deldv = cur.value
-                deldk = cur.key
-                self.storage_array[indx].delete(cur)
-                return f"'{deldk}: {deldv}' deleted."
-            cur = cur.get_next()
-        return 'key not found, therefore not deletable'
+        lank = self.storage_array[indx]
+        nodes = lank.find(key)
 
+        if type(nodes) is dict:
+            if nodes['prev']:
+                nodes['prev'].next = nodes['cur'].next
+            elif not nodes['prev']:
+                lank.remove_head()
+            else:
+                nodes['prev'].next = None
+            return nodes['cur'].key, nodes['cur'].value
+        return nodes
 
     def get(self, key):
         """
         Retrieve the value stored with the given key.
-
         Returns None if the key is not found.
-
-        Implement this.
         """
         indx = self.hash_index(key)
-        cur = self.storage_array[indx].head
-        while cur:
-            if cur.key == key:
-                return cur.value
-            cur = cur.get_next()
-        return 'key not found'
+        lank = self.storage_array[indx]
+        nodes = lank.find(key)
 
+        if type(nodes) is dict:
+            return nodes['cur'].value
+        return None
 
     def resize(self, new_capacity):
         """
         Changes the capacity of the hash table and
         rehashes all key/value pairs.
-
-        Implement this.
         """
         # Your code here
 
