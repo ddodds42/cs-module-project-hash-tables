@@ -33,29 +33,28 @@ class HashTable:
 
         One of the tests relies on this.
         """
-        # Your code here
+        return self.capacity
 
+    def num_records(self):
+        # counter
+        slots = 0
+        for linklist in self.storage_array:
+            # increment counter with each list's length
+            slots += linklist.length
+        return slots
 
     def get_load_factor(self):
-        """
-        Return the load factor for this hash table.
-        """
-        # Your code here
+        return self.num_records()/self.capacity
 
 
     def fnv1(self, key):
-        """
-        FNV-1 Hash, 64-bit
-        Implement this, and/or DJB2.
-        """
-
-        # Your code here
+        # FNV-1 Hash, 64-bit
+        # Implement this, and/or DJB2.
+        pass
 
 
     def djb2(self, key):
-        """
-        DJB2 hash, 32-bit
-        """
+        # DJB2 hash, 32-bit
         hash = 5831
         for c in key:
             hash = (hash*33) + ord(c)
@@ -63,32 +62,30 @@ class HashTable:
 
 
     def hash_index(self, key):
-        """
-        Take an arbitrary key and return a valid integer index
-        between within the storage capacity of the hash table.
-        """
+        # Take an arbitrary key and return a valid integer index
+        # between within the storage capacity of the hash table.
+
         #return self.fnv1(key) % self.capacity
         return self.djb2(key) % self.capacity
 
     def put(self, key, value):
-        """
-        Store the value with the given key.
-        Hash collisions should be handled with Linked List Chaining.
-        """
+        # Store the value with the given key.
+        # Hash collisions should be handled with Linked List Chaining.
+        if self.get_load_factor() >= 0.7:
+            self.resize(self.capacity*2)
+
         indx = self.hash_index(key)
         nodes = self.storage_array[indx].find(key)
         if type(nodes) is dict:
             nodes['cur'].key = key
             nodes['cur'].value = value
+            self.storage_array[indx].length +=1
             return
         self.storage_array[indx].add_to_tail(key, value)
 
-
     def delete(self, key):
-        """
-        Remove the value stored with the given key.
-        Print a warning if the key is not found.
-        """
+        # Remove the value stored with the given key.
+        # Print a warning if the key is not found.
         indx = self.hash_index(key)
         lank = self.storage_array[indx]
         nodes = lank.find(key)
@@ -96,18 +93,17 @@ class HashTable:
         if type(nodes) is dict:
             if nodes['prev']:
                 nodes['prev'].next = nodes['cur'].next
+                lank.length -= 1
             elif not nodes['prev']:
                 lank.remove_head()
             else:
-                nodes['prev'].next = None
+                lank.remove_tail()
             return nodes['cur'].key, nodes['cur'].value
         return nodes
 
     def get(self, key):
-        """
-        Retrieve the value stored with the given key.
-        Returns None if the key is not found.
-        """
+        # Retrieve the value stored with the given key.
+        # Returns None if the key is not found.
         indx = self.hash_index(key)
         lank = self.storage_array[indx]
         nodes = lank.find(key)
@@ -121,8 +117,14 @@ class HashTable:
         Changes the capacity of the hash table and
         rehashes all key/value pairs.
         """
-        # Your code here
-
+        new_ht = HashTable(new_capacity)
+        for linklist in self.storage_array:
+            cur = linklist.head
+            while cur:
+                new_ht.put(cur.key, cur.value)
+                cur = cur.next
+        self.capacity = new_capacity
+        self.storage_array = new_ht.storage_array
 
 
 if __name__ == "__main__":
@@ -141,7 +143,7 @@ if __name__ == "__main__":
     ht.put("line_11", "So rested he by the Tumtum tree")
     ht.put("line_12", "And stood awhile in thought.")
 
-    print("")
+    print()
 
     # Test storing beyond capacity
     for i in range(1, 13):
@@ -158,4 +160,4 @@ if __name__ == "__main__":
     for i in range(1, 13):
         print(ht.get(f"line_{i}"))
 
-    print("")
+    print()

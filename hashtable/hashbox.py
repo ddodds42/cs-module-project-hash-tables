@@ -5,42 +5,20 @@ capacity = 20
 
 tably = HashTable(capacity)
 
+print(tably.get_load_factor(), '\n')
+
 tably.put('mountain', 'hill')
 tably.put('sky', 'wind')
+tably.put('Super', 'Julie')
+tably.put('kala', 'Andrews')
+tably.put('fragile', 'mary')
+tably.put('istic', 'poppins')
+tably.put('expi', 'Sound')
+tably.put('ali', 'of')
+tably.put('docious', 'Music')
 
-tably.storage_array[14].print_links()
-# print('\n')
-# tably.storage_array[1].print_links()
-print('\n')
-print(tably.get('sky'))
-print('\n')
-tably.storage_array[14].print_links()
+print(tably.get_load_factor(), '\n')
 
-'''
-tably.put('I', 'you')
-tably.put('am', 'be')
-tably.put('the', 'a')
-tably.put('mountain', 'hill')
-tably.put('sea', 'ocean')
+tably.resize(capacity*9)
 
-print('mountain index = ', tably.hash_index('mountain'))
-print('sky index = ', tably.hash_index('sky'), '\n')
-
-print('mountain before potential collision: ', tably.get('mountain'), '\n')
-
-tably.put('sky', 'wind')
-
-print('mountain, collision averted: ', tably.get('mountain'))
-print('sky, collision averted: ', tably.get('sky'), '\n')
-
-print(
-    'the linked list itself: '
-)
-tably.storage_array[14].print_links()
-print('\n')
-
-print(tably.deleter('sky'), '\n')
-
-print('mountain still there: ', tably.get('mountain'))
-print('sky still there: ', tably.get('sky'), '\n')
-'''
+print(tably.get_load_factor(), '\n')
