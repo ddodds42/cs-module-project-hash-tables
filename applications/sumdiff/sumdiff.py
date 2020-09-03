@@ -3,13 +3,25 @@ find all a, b, c, d in q such that
 f(a) + f(b) = f(c) - f(d)
 """
 
-#q = set(range(1, 10))
-#q = set(range(1, 200))
-q = (1, 3, 4, 7, 12)
+q = set(range(1, 10))
+# q = set(range(1, 200))
+# q = (1, 3, 4, 7, 12)
 
 
 def f(x):
     return x * 4 + 6
 
-# Your code here
+def alg_equiv(set):
+    outputs = {}
+    for n in set:
+        outputs[n] = f(n)
+    combos = []
+    for m in outputs:
+        for k in outputs:
+            for j in outputs:
+                for h in outputs:
+                    if outputs[m] + outputs[k] == outputs[j] - outputs[h]:
+                        combos.append([m,k,j,h])
+    return combos
 
+print(alg_equiv(q))
