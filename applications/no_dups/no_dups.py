@@ -1,5 +1,17 @@
 def no_dups(s):
-    # Your code here
+    words = s.split()
+    chekr = {}
+    for w in words:
+        if w not in chekr:
+            chekr[w] = 0
+    undup = list(chekr.keys())
+    output = ""
+    for w in undup:
+        if output == '':
+            output += w
+        else:
+            output += ' ' + w
+    return output
 
 
 
