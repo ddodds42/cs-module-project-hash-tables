@@ -2,13 +2,32 @@ def word_count(s):
     slow = s.lower()
     lean = slow.strip(
         '''
-        ":;,.-+=/\|[]{}()*^&
+        : ; + = / \ | [ ] { } * ^ &
         '''
 )
     peski = lean.replace('"', '')
-    # peskee = peski.replace("'", '')
-    pesky = peski.replace(".", '')
+    peskee = peski.replace("'", '')
+    pesky = peskee.replace(".", '')
     pesqy = pesky.replace(",", '')
+    pesqy = pesqy.replace("-", ' ')
+    pesqy = pesqy.replace("(", '')
+    pesqy = pesqy.replace(")", '')
+    pesqy = pesqy.replace("?", '')
+    pesqy = pesqy.replace("!", '')
+    pesqy = pesqy.replace(":", '')
+    pesqy = pesqy.replace(";", '')
+    pesqy = pesqy.replace("+", '')
+    pesqy = pesqy.replace("=", '')
+    pesqy = pesqy.replace("/", '')
+    pesqy = pesqy.replace("\\", '')
+    pesqy = pesqy.replace("|", '')
+    pesqy = pesqy.replace("[", '')
+    pesqy = pesqy.replace("]", '')
+    pesqy = pesqy.replace("{", '')
+    pesqy = pesqy.replace("}", '')
+    pesqy = pesqy.replace("*", '')
+    pesqy = pesqy.replace("^", '')
+    pesqy = pesqy.replace("&", '')
 
     lex = pesqy.split()
 
