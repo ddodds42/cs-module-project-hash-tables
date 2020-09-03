@@ -1,7 +1,27 @@
 def word_count(s):
-    # Your code here
+    slow = s.lower()
+    lean = slow.strip(
+        '''
+        ":;,.-+=/\|[]{}()*^&
+        '''
+)
+    peski = lean.replace('"', '')
+    # peskee = peski.replace("'", '')
+    pesky = peski.replace(".", '')
+    pesqy = pesky.replace(",", '')
 
+    lex = pesqy.split()
 
+    endgame = {}
+
+    if len(lex) ==0:
+        return endgame
+    for word in lex:
+        if word in endgame:
+            endgame[word] +=1
+        else:
+            endgame[word] = 1
+    return endgame
 
 if __name__ == "__main__":
     print(word_count(""))
